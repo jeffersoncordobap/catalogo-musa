@@ -63,6 +63,13 @@ a {
     object-fit: contain;
 }
 
+.img-footer {
+    width: 150px;
+    height: 86px;
+    display: block;
+    object-fit: contain;
+}
+
 .nav {
     display: flex;
     align-items: center;
