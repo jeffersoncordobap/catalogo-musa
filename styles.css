@@ -186,58 +186,6 @@ a {
     display: block;
 }
 
-.collection-number {
-    color: var(--primary);
-    font-size: .75rem;
-    font-weight: 800;
-    letter-spacing: .12em;
-}
-
-.card-links {
-    display: grid;
-    gap: 10px;
-    margin-top: auto;
-    padding-top: 28px;
-}
-
-.card-links a {
-    color: var(--navy);
-    font-weight: 800;
-}
-
-.card-links a:hover {
-    color: var(--primary-hover);
-}
-
-.standards {
-    padding: 45px 0;
-}
-
-.standards-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-}
-
-.standard {
-    min-height: 82px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    color: var(--navy);
-    font-size: 1.5rem;
-    font-weight: 800;
-}
-
-.standard span {
-    color: var(--muted);
-    font-size: .75rem;
-    font-weight: 400;
-}
-
 .about {
     padding: 95px 0;
     background: var(--rose-pale);
@@ -476,9 +424,7 @@ a {
         gap: 14px 20px;
     }
 
-    .services-grid,
     .product-grid,
-    .standards-grid,
     .footer-grid {
         grid-template-columns: 1fr;
     }
@@ -507,8 +453,4 @@ a {
         font-size: 2.75rem;
     }
 
-    .service-card {
-        min-height: 0;
-        padding: 26px;
-    }
 }
