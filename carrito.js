@@ -6,18 +6,36 @@
         return;
     }
 
+    const parsePrice = (value) => {
+        if (typeof value !== "string") {
+            return 0;
+        }
+
+        const normalized = value.replace(/\s+/g, "");
+        const match = normalized.match(/\d+(?:[.,]\d+)?/);
+
+        if (!match) {
+            return 0;
+        }
+
+        const numericValue = Number(match[0].replace(".", "").replace(",", "."));
+        return Number.isFinite(numericValue) ? numericValue : 0;
+    };
+
     const products = cards.map((card, index) => {
         const name = card.querySelector("h3")?.textContent.trim() || `Prenda ${index + 1}`;
         const type = card.querySelector(".product-type")?.textContent.trim() || "Prenda";
         const priceText = card.querySelector(".product-info strong")?.textContent || "";
         const image = card.querySelector(".product-art img");
+        const price = parsePrice(priceText);
 
         return {
             id: String(index),
             name,
             type,
-            price: Number(priceText.replace(/[^\d]/g, "")),
-            image
+            price,
+            image,
+            available: price > 0
         };
     });
 
@@ -93,6 +111,10 @@
     productGrid.before(cartSection);
 
     function addProduct(product) {
+        if (!product.available) {
+            return;
+        }
+
         const current = cart.get(product.id);
         cart.set(product.id, { product, quantity: (current?.quantity || 0) + 1 });
         renderCart();
@@ -170,7 +192,8 @@
         for (const product of products) {
             const quantity = cart.get(product.id)?.quantity || 0;
             product.addButtons.forEach((button) => {
-                button.textContent = quantity ? `Agregar otra (${quantity})` : "Agregar al carrito";
+                button.disabled = !product.available;
+                button.textContent = !product.available ? "Próximamente" : quantity ? `Agregar otra (${quantity})` : "Agregar al carrito";
             });
         }
     }
@@ -188,12 +211,14 @@
             image.parentElement.replaceChild(imageButton, image);
             imageButton.append(image);
             imageButton.addEventListener("click", () => addProduct(product));
+            imageButton.disabled = !product.available;
         }
 
         const addButton = document.createElement("button");
         addButton.className = "musa-add-button";
         addButton.type = "button";
-        addButton.textContent = "Agregar al carrito";
+        addButton.textContent = product.available ? "Agregar al carrito" : "Próximamente";
+        addButton.disabled = !product.available;
         addButton.addEventListener("click", () => addProduct(product));
         card.querySelector(".product-info")?.append(addButton);
         product.addButtons.push(addButton);
