@@ -344,7 +344,7 @@ a {
 }
 
 .product-art img {
-    width: auto;
+    width: 100%;
     height: 100%;
     display: block;
     object-fit: cover;
@@ -452,10 +452,4 @@ a {
     .hero h1 {
         font-size: 2.75rem;
     }
-
-    .product-art {
-        height: 550px;
-        background: var(--rose-pale);
-    }
-
 }
